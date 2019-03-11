@@ -3,8 +3,8 @@
 /           GOLBAL VARIABLES
 /
 /*************************************************************/
-// var RESET_VALUE = 15;
-var RESET_VALUE = 150;
+var RESET_VALUE = 15;
+// var RESET_VALUE = 150;
 var count=RESET_VALUE;
 var isRunning = false;
 var counter = null;
@@ -55,8 +55,8 @@ function timer(){
      if(playEndSound.checked){
       f_playEndSound();
      }
-     
-     resetAfter5Seconds();
+     //Wait 5 seconds, then reset
+     setTimeout(reset, 5000);
      return;
   }
 
@@ -112,26 +112,6 @@ function toggle(){
   else{
     start();
   }
-}
-
-/**************************************************************
-/
-/           RESET AFTER 5 SECONDS
-/             Called after the timer ends. Waits 5 seconds,
-/             then calls reset().
-/
-/*************************************************************/
-function resetAfter5Seconds(){
-  var fiveCount = 5;
-  function silentCountdown(){
-    fiveCount=fiveCount-1;
-    if (fiveCount <=0){
-      clearInterval(silentCountdown);
-      reset();
-      return;
-    }
-  }
-  setInterval(silentCountdown, 1000);
 }
 
 /**************************************************************
@@ -221,9 +201,7 @@ document.addEventListener('keypress', function(event) {
         }
     }
     else if (event.key == 'r'){
-        if (document.activeElement.className != "timer_button"){
-          reset();
-        }
+      reset();
     }
 });
 
