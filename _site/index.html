@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>FLL Timer</title>
+		<script src="http://johnholbrook.us/analytics.js"></script>
+		<link rel="stylesheet" type="text/css" href="/site.css">
+		<link rel="shortcut icon" href="/favicon.ico">
+	</head>
+	<body>
+		<div class="timer_wrapper">
+			<div class="display" id="timer_display"></div>
+
+			<button class="timer_button" onclick="toggle()">
+				<div class="button_title" id="start_pause">Start</div>
+				<div class="button_hint">(Spacebar)</div>
+			</button>
+			<button class="timer_button" onclick="reset()">
+				<div class="button_title">Reset</div>
+				<div class="button_hint">(R)</div>
+			</button>
+
+		</div>
+
+		<br/>
+
+		<button class="options_button" id="options_button" onclick="toggleOptions()">Options </button>
+		<br/> <br/>
+		<div class="options_wrapper" id="options_wrapper">
+			<div class="sound_options options_panel">
+				Sound Effects:
+				<br/>
+				<input type="checkbox" id="start_sound" checked>Start</input>:
+				<select id="select_start_sound">
+					<option value="charge">Charge!</option>
+					<option value="mariokart">Mario Kart</option>
+				</select>
+				<br/>
+				<input type="checkbox" id="30_second_warning" checked>30 Second Warning</input>:
+				<select id="select_30secs_sound">
+					<option value="laser">Laser</option>
+					<option value="church_bell">Church Bells</option>
+				</select>
+				<br/>
+				<input type="checkbox" id="time_up_sound" checked>End Of Timer</input>:
+				<select id="select_end_sound">
+					<option value="buzzer">Buzzer</option>
+					<option value="ding">Ding Ding</option>
+				</select>
+			</div>
+		</div>
+		<script src="/timer.js"></script>
+
+		<small>
+			<a href="http://johnholbrook.us">Home</a> |
+			<a href="/about.html">About</a> |
+			<a href="https://github.com/dhmmjoph/fll-timer.com">GitHub</a>
+		</small>
+	</body>
+</html>
