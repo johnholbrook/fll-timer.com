@@ -3,8 +3,8 @@
 /           GOLBAL VARIABLES
 /
 /*************************************************************/
-var RESET_VALUE = 15;
-// var RESET_VALUE = 150;
+// var RESET_VALUE = 15;
+var RESET_VALUE = 150;
 var count=RESET_VALUE;
 var isRunning = false;
 var counter = null;
@@ -45,19 +45,18 @@ display.innerHTML = secsToClock(RESET_VALUE);
 /*************************************************************/
 function timer(){
   count=count-1;
-  if (count <= 0)
-  {
+  if (count <= 0){
     console.log("timer ended");
     pause();
-     clearInterval(counter);
-     //counter ended, do something here
-     display.innerHTML = secsToClock(0);
-     if(playEndSound.checked){
-      f_playEndSound();
-     }
-     //Wait 5 seconds, then reset
-     setTimeout(reset, 5000);
-     return;
+    clearInterval(counter);
+    //counter ended, do something here
+    display.innerHTML = secsToClock(0);
+    if(playEndSound.checked){
+     f_playEndSound();
+    }
+    //Wait 5 seconds, then reset
+    setTimeout(reset, 5000);
+    return;
   }
 
   //update the time on the display
