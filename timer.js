@@ -9,6 +9,14 @@ var count=RESET_VALUE;
 var isRunning = false;
 var counter = null;
 
+//Pre-load sounds
+var charge_sound = new Audio("/sounds/charge.mp3");
+var mk_sound = new Audio("/sounds/mario_kart.mp3");
+var laser_sound = new Audio("/sounds/laser.mp3");
+var church_bell_sound = new Audio("/sounds/church_bell.mp3");
+var buzzer_sound = new Audio("/sounds/buzzer.mp3");
+var ding_sound = new Audio("/sounds/four_ding.mp3");
+
 /**************************************************************
 /
 /           GET HTML ELEMENTS
@@ -138,10 +146,10 @@ function secsToClock(time){
 function f_playStartSound(){
   var chosenSound = document.getElementById("select_start_sound").value;
   if (chosenSound === "charge"){
-    var startSound = new Audio("/sounds/charge.mp3");
+    var startSound = charge_sound;
   }
   else if (chosenSound === "mariokart"){
-    var startSound = new Audio("/sounds/mario_kart.mp3");
+    var startSound = mk_sound;
   }
   startSound.play();
 }
@@ -149,10 +157,10 @@ function f_playStartSound(){
 function f_play30SecondWarning(){
   var chosenSound = document.getElementById("select_30secs_sound").value;
   if (chosenSound === "laser"){
-    var warningSound = new Audio("/sounds/laser.mp3");
+    var warningSound = laser_sound;
   }
   else if (chosenSound === "church_bell"){
-    var warningSound = new Audio("/sounds/church_bell.mp3");
+    var warningSound = church_bell_sound;
   }
   warningSound.play();
 }
@@ -160,10 +168,10 @@ function f_play30SecondWarning(){
 function f_playEndSound(){
   var chosenSound = document.getElementById("select_end_sound").value;
   if (chosenSound === "buzzer"){
-    var endSound = new Audio("/sounds/buzzer.mp3");
+    var endSound = buzzer_sound;
   }
   else if (chosenSound === "ding"){
-      var endSound = new Audio("/sounds/four_ding.mp3");
+      var endSound = ding_sound;
   }
   endSound.play();
 }
