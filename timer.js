@@ -212,15 +212,42 @@ document.addEventListener('keypress', function(event) {
     }
 });
 
+var current_font_choice;
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem("font_choice")){
+    current_font_choice = localStorage.getItem("font_choice");
+    setFont(current_font_choice);
+  }
+  else{
+    current_font_choice = document.querySelector("#select_font").value;
+    localStorage.setItem("font_choice", current_font_choice);
+    setFont(current_font_choice);
+  }
+});
+
+
+function setFont(font_choice){
+  document.querySelector("#timer_display").style.fontFamily = font_choice;
+}
 
 // Set font when needed
 document.querySelector("#select_font").onchange = function(){
-  let font_choice = document.querySelector("#select_font").value;
-  if (font_choice == "ubuntu-mono-bold"){
-    document.querySelector("#timer_display").style.fontFamily = "Ubuntu";
+  let new_font_choice = document.querySelector("#select_font").value;
+  // if (font_choice == "ubuntu-mono-bold"){
+    
+  // }
+  // else{
+  //   document.querySelector("#timer_display").style.fontFamily = "";
+  // }
+  if (new_font_choice == "default"){
+    current_font_choice = "";
+    localStorage.setItem("font_choice", current_font_choice);
+    setFont(current_font_choice);
   }
   else{
-    document.querySelector("#timer_display").style.fontFamily = "";
+    current_font_choice = document.querySelector("#select_font").value;
+    localStorage.setItem("font_choice", current_font_choice);
+    setFont(current_font_choice);
   }
 }
 
