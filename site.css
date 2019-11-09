@@ -1,3 +1,8 @@
+@font-face{
+    font-family: Ubuntu;
+    src: url("./fonts/UbuntuMono-B.ttf");
+}
+
 .display{
 	font-size: 30em;
 }

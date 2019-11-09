@@ -213,6 +213,16 @@ document.addEventListener('keypress', function(event) {
 });
 
 
+//Set font when needed
+document.querySelector("#select_font").onclick = function(){
+  let font_choice = document.querySelector("#select_font").value;
+  if (font_choice == "ubuntu-mono-bold"){
+    document.querySelector("#timer_display").style.font-family = "Ubuntu";
+  }
+  else{
+    document.querySelector("#timer_display").style.font-family = "";
+  }
+}
 
 
 
