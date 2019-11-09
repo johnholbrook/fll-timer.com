@@ -3,6 +3,11 @@
     src: url("./fonts/UbuntuMono-B.ttf");
 }
 
+@font-face{
+	font-family: digital-7-mono;
+	src: url("./fonts/digital-7-mono.ttf");
+}
+
 .display{
 	font-size: 30em;
 	/* font-family: Ubuntu; */
