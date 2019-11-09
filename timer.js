@@ -212,43 +212,43 @@ document.addEventListener('keypress', function(event) {
     }
 });
 
-var current_font_choice;
+// var current_font_choice;
 document.addEventListener('DOMContentLoaded', () => {
+  // if (localStorage.getItem("font_choice") != null){
+  //   console.log("font preference found: " + localStorage.getItem("font_choice"));
+  //   current_font_choice = localStorage.getItem("font_choice");
+  //   setFont(current_font_choice);
+  // }
+  // else{
+  //   console.log("font preference not found");
+  //   current_font_choice = document.querySelector("#select_font").value;
+  //   localStorage.setItem("font_choice", current_font_choice);
+  //   setFont(current_font_choice);
+  // }
   if (localStorage.getItem("font_choice")){
-    current_font_choice = localStorage.getItem("font_choice");
-    setFont(current_font_choice);
+    setFont();
   }
   else{
-    current_font_choice = document.querySelector("#select_font").value;
-    localStorage.setItem("font_choice", current_font_choice);
-    setFont(current_font_choice);
+    localStorage.setItem("font_choice", document.querySelector("#select_font").value);
+    setFont();
   }
 });
 
 
-function setFont(font_choice){
-  document.querySelector("#timer_display").style.fontFamily = font_choice;
+function setFont(){
+  let font_choice = localStorage.getItem("font_choice")
+  if (font_choice == "default"){
+    document.querySelector("#timer_display").style.fontFamily = "";
+  }
+  else{
+    document.querySelector("#timer_display").style.fontFamily = font_choice;
+  }
 }
 
 // Set font when needed
 document.querySelector("#select_font").onchange = function(){
-  let new_font_choice = document.querySelector("#select_font").value;
-  // if (font_choice == "ubuntu-mono-bold"){
-    
-  // }
-  // else{
-  //   document.querySelector("#timer_display").style.fontFamily = "";
-  // }
-  if (new_font_choice == "default"){
-    current_font_choice = "";
-    localStorage.setItem("font_choice", current_font_choice);
-    setFont(current_font_choice);
-  }
-  else{
-    current_font_choice = document.querySelector("#select_font").value;
-    localStorage.setItem("font_choice", current_font_choice);
-    setFont(current_font_choice);
-  }
+  localStorage.setItem("font_choice", document.querySelector("#select_font").value);
+  setFont();
 }
 
 
