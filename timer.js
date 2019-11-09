@@ -214,17 +214,6 @@ document.addEventListener('keypress', function(event) {
 
 // var current_font_choice;
 document.addEventListener('DOMContentLoaded', () => {
-  // if (localStorage.getItem("font_choice") != null){
-  //   console.log("font preference found: " + localStorage.getItem("font_choice"));
-  //   current_font_choice = localStorage.getItem("font_choice");
-  //   setFont(current_font_choice);
-  // }
-  // else{
-  //   console.log("font preference not found");
-  //   current_font_choice = document.querySelector("#select_font").value;
-  //   localStorage.setItem("font_choice", current_font_choice);
-  //   setFont(current_font_choice);
-  // }
   if (localStorage.getItem("font_choice")){
     setFont();
   }
