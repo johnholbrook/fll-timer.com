@@ -2,63 +2,125 @@
 <html>
 	<head>
 		<title>FLL Timer | fll-timer.com</title>
+		<link rel="stylesheet" type="text/css" href="/bootstrap/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="/site.css">
 		<link rel="shortcut icon" href="/favicon.ico">
+		<script src="bootstrap/jquery-3.4.1-compressed-slim.js"></script>
+		<script src="bootstrap/bootstrap.min.js"></script>
 	</head>
 	<body>
 		<div class="timer_wrapper">
-			<div class="display" id="timer_display"></div>
+			<div class="display mb-0" id="timer_display"></div>
 
-			<button class="timer_button" onclick="toggle()">
-				<div class="button_title" id="start_pause">Start</div>
-				<div class="button_hint">(Spacebar)</div>
+			<button class="btn btn-success timer_button mt-0 mr-4" onclick="toggle()">
+				<div class="button_title mb-0" id="start_pause">Start</div>
+				<!-- <div class="button_hint">(Spacebar)</div> -->
 			</button>
-			<button class="timer_button" onclick="reset()">
+			<button class="btn btn-danger timer_button mt-0" onclick="reset()">
 				<div class="button_title">Reset</div>
-				<div class="button_hint">(R)</div>
+				<!-- <div class="button_hint">(R)</div> -->
 			</button>
 
 		</div>
 
 		<br/>
 
-		<button class="options_button" id="options_button" onclick="toggleOptions()">Options </button>
-		<br/> <br/>
-		<div class="options_wrapper" id="options_wrapper">
-			<!-- <input type="button" id="chroma_key">Chroma Key Mode</input> -->
-			<div class="sound_options options_panel">
-				Sound Effects:
-				<br/>
-				<input type="checkbox" id="start_sound" checked>Start</input>:
-				<select id="select_start_sound">
-					<option value="charge">Charge!</option>
-					<option value="mariokart">Mario Kart</option>
-				</select>
-				<br/>
-				<input type="checkbox" id="30_second_warning" checked>30 Second Warning</input>:
-				<select id="select_30secs_sound">
-					<option value="laser">Laser</option>
-					<option value="church_bell">Church Bells</option>
-				</select>
-				<br/>
-				<input type="checkbox" id="time_up_sound" checked>End Of Timer</input>:
-				<select id="select_end_sound">
-					<option value="buzzer">Buzzer</option>
-					<option value="ding">Ding Ding</option>
-				</select>
-				<br/>
-				Font:
-				<select id="select_font">
-					<option value="default">System Default</option>
-					<option value="ubuntu-mono-bold">Ubuntu Mono Bold</option>
-					<option value="digital-7-mono">Seven-Segment</option>
-				</select>
+		<div class="accordion" id="options">
+			<div class="card">
+				<div class="card-header" id="options_header">
+					<button class="btn btn-link btn-block" type="button" data-toggle="collapse" data-target="#options_body" aria-expanded="false" aria-controls="options_body">
+						<div class="h3">Options</div> 
+					</button>
+				</div>
+
+				<div id="options_body" class="collapse" aria-labelledby="options_header" data-parent="#options">
+
+					<div class="card">
+						<div class="card-header">Sounds</div>
+						<div class="card-body">
+							<div class="conatiner">
+								<div class="row mb-2">
+									<div class="col col-2">Start:</div>
+									<div class="col col-10">
+										<div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+											<label class="btn btn-secondary" id="start-none">
+												<input type="radio" name="options"> None
+											</label>
+											<label class="btn btn-secondary" id="start-charge">
+												<input type="radio" name="options" checked> Charge!
+											</label>
+											<label class="btn btn-secondary" id="start-mario">
+												<input type="radio" name="options"> Mario Kart
+											</label>
+										</div>
+									</div>
+								</div>
+
+								<div class="row mb-2">
+									<div class="col col-2">30 Sec:</div>
+									<div class="col col-10">
+										<div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+											<label class="btn btn-secondary" id="warning-none">
+												<input type="radio" name="options"> None
+											</label>
+											<label class="btn btn-secondary active" id="warning-laser">
+												<input type="radio" name="options" checked> Laser
+											</label>
+											<label class="btn btn-secondary" id="warning-bells">
+												<input type="radio" name="options"> Bells
+											</label>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col col-2">End:</div>
+									<div class="col col-10">
+										<div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+											<label class="btn btn-secondary" id="end-none">
+												<input type="radio" name="options"> None
+											</label>
+											<label class="btn btn-secondary active" id="end-buzzer">
+												<input type="radio" name="options" checked> Buzzer
+											</label>
+											<label class="btn btn-secondary" id="end-ding">
+												<input type="radio" name="options"> Ding Ding
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-header">Font</div>
+						<div class="card-body">
+							<div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+								<label class="btn btn-secondary">
+									<input type="radio" name="options" id="font-default" onclick="changeFont('default')"> Default
+								</label>
+								<label class="btn btn-secondary">
+									<input type="radio" name="options" id="font-ubuntu" onclick="changeFont('ubuntu-mono-bold')"> Ubuntu
+								</label>
+								<label class="btn btn-secondary">
+									<input type="radio" name="options" id="font-7seg" onclick="changeFont('digital-7-mono')"> 7 Segment
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
+
 		<script src="/timer.js"></script>
 
+		<br>
+
+		<small>(Space to start/pause, R to reset)</small>
+		<br>
 		<small>
-			<a href="http://johnholbrook.us">Home</a> |
 			<a href="/about.html">About</a> |
 			<a href="https://github.com/dhmmjoph/fll-timer.com">GitHub</a>
 		</small>

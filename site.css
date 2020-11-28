@@ -10,66 +10,15 @@
 
 .display{
 	font-size: 30em;
-	/* font-family: Ubuntu; */
-}
-
-.current_mode{
-	font-size: 4em;
-	margin-bottom: 0;
-	padding-bottom: 0;
-}
-
-.timer_wrapper{
-}
-
-.timer_button{
-	//font-size: 4em;
-}
-
-.timer_button small{
-	//font-size: 0.2em;
-}
-
-.timer_button br{
-	//font-size: 0.2em;	
 }
 
 .button_title{
 	font-size: 4em;
 }
 
-.options_button{
-	font-size: 1.5em;
-}
-
-.options_wrapper{
-	display: flex;
-	display: -webkit-box;
-  	display: -moz-box;
-  	display: -ms-flexbox;
-  	display: -webkit-flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: flex-start;
-}
-
-.options_wrapper{
-	border: 1px solid black;
-	border-radius: 5px;
-	background-color: #eeeeee;
-	width: 18em;
+#options{
+	max-width: 30%;
 	margin: 0 auto;
-	font-size: 1.5em;
-	height: 100%;
-}
-
-.options_panel{
-	display: inline-block;
-}
-
-.sound_options{
-	padding: 10px;
 }
 
 body{
@@ -79,25 +28,3 @@ body{
 body ul{
 	text-align: left;
 }
-
-.content{
-	max-width: 800px;
-	text-align: center;
-	margin: 0 auto;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

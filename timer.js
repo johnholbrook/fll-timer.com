@@ -23,21 +23,13 @@ var ding_sound = new Audio("/sounds/four_ding.mp3");
 /
 /*************************************************************/
 var display = document.getElementById("timer_display");
-var playStartSound = document.getElementById("start_sound");
-var play30SecsSound = document.getElementById("30_second_warning");
-var playEndSound = document.getElementById("time_up_sound");
-var optionsButton = document.getElementById("options_button");
-var optionsPanel = document.getElementById("options_wrapper");
-var startButtonText = document.getElementById("start_pause");
+var startButtonText = document.querySelector("#start_pause");
 
 /**************************************************************
 /
 /           INITIALIZE SOME ELEMENTS
 /
 /*************************************************************/
-//hide the options panel by default
-optionsPanel.style.display = "none";
-optionsButton.innerHTML = "Show Options"
 //initialize the start button text
 startButtonText.innerHTML = "Start";
 //initialize the timer display
@@ -57,11 +49,8 @@ function timer(){
     console.log("timer ended");
     pause();
     clearInterval(counter);
-    //counter ended, do something here
     display.innerHTML = secsToClock(0);
-    if(playEndSound.checked){
-     f_playEndSound();
-    }
+    playEndSound();
     //Wait 5 seconds, then reset
     setTimeout(reset, 5000);
     return;
@@ -72,8 +61,8 @@ function timer(){
   display.innerHTML = time;
 
   //play sound effect, if any
-  if (count === 30 && play30SecsSound.checked){
-    f_play30SecondWarning();
+  if (count == 30){
+    play30SecondWarning();
   }
 };
 
@@ -87,8 +76,8 @@ function timer(){
 function start(){
   console.log("Starting timer");
   //play the "start" sound effect, if applicable
-  if (count === RESET_VALUE && playStartSound.checked){
-    f_playStartSound();
+  if (count === RESET_VALUE){
+    playStartSound();
   }
   if (!isRunning){
     isRunning = true;
@@ -143,37 +132,31 @@ function secsToClock(time){
 /             Play the currently-selected sound in each category.
 /
 /*************************************************************/
-function f_playStartSound(){
-  var chosenSound = document.getElementById("select_start_sound").value;
-  if (chosenSound === "charge"){
-    var startSound = charge_sound;
+function playStartSound(){
+  if (document.querySelector("#start-charge").classList.contains("active")){
+    charge_sound.play();
   }
-  else if (chosenSound === "mariokart"){
-    var startSound = mk_sound;
+  else if (document.querySelector("#start-mario").classList.contains("active")){
+    mk_sound.play();
   }
-  startSound.play();
 }
 
-function f_play30SecondWarning(){
-  var chosenSound = document.getElementById("select_30secs_sound").value;
-  if (chosenSound === "laser"){
-    var warningSound = laser_sound;
+function play30SecondWarning(){
+  if (document.querySelector("#warning-laser").classList.contains("active")){
+    laser_sound.play();
   }
-  else if (chosenSound === "church_bell"){
-    var warningSound = church_bell_sound;
+  else if (document.querySelector("#warning-bells").classList.contains("active")){
+    church_bell_sound.play();
   }
-  warningSound.play();
 }
 
-function f_playEndSound(){
-  var chosenSound = document.getElementById("select_end_sound").value;
-  if (chosenSound === "buzzer"){
-    var endSound = buzzer_sound;
+function playEndSound(){
+  if (document.querySelector("#end-buzzer").classList.contains("active")){
+    buzzer_sound.play();
   }
-  else if (chosenSound === "ding"){
-      var endSound = ding_sound;
+  else if (document.querySelector("#end-ding").classList.contains("active")){
+    ding_sound.play();
   }
-  endSound.play();
 }
 
 /**************************************************************
@@ -182,16 +165,16 @@ function f_playEndSound(){
 /             Show or hide the options panel
 /
 /*************************************************************/
-function toggleOptions(){
-  if (optionsPanel.style.display === "none"){
-    optionsPanel.style.display = "block";
-    optionsButton.innerHTML = "Hide Options"
-  }
-  else{
-    optionsPanel.style.display = "none";
-    optionsButton.innerHTML = "Show Options"
-  }
-}
+// function toggleOptions(){
+//   if (optionsPanel.style.display === "none"){
+//     optionsPanel.style.display = "block";
+//     optionsButton.innerHTML = "Hide Options"
+//   }
+//   else{
+//     optionsPanel.style.display = "none";
+//     optionsButton.innerHTML = "Show Options"
+//   }
+// }
 
 /**************************************************************
 /
@@ -212,17 +195,24 @@ document.addEventListener('keypress', function(event) {
     }
 });
 
-// var current_font_choice;
+// read font choice from local storage (if any)
 document.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem("font_choice")){
-    setFont();
+  document.querySelector("#font-default").checked = false;
+  document.querySelector("#font-ubuntu").checked = false;
+  document.querySelector("#font-7seg").checked = false;
+  switch (localStorage.getItem("font_choice")){
+    case "ubuntu-mono-bold":
+      document.querySelector("#font-ubuntu").checked = true;
+    break;
+    case "digital-7-mono":
+      document.querySelector("#font-7seg").checked = true;
+    break;
+    default:
+      document.querySelector("#font-default").checked = true;
+      localStorage.setItem("font_choice", "default");
   }
-  else{
-    localStorage.setItem("font_choice", document.querySelector("#select_font").value);
-    setFont();
-  }
+  setFont();
 });
-
 
 function setFont(){
   let font_choice = localStorage.getItem("font_choice")
@@ -234,13 +224,7 @@ function setFont(){
   }
 }
 
-// Set font when needed
-document.querySelector("#select_font").onchange = function(){
-  localStorage.setItem("font_choice", document.querySelector("#select_font").value);
+function changeFont(newFont){
+  localStorage.setItem("font_choice", newFont);
   setFont();
 }
-
-
-
-
-
