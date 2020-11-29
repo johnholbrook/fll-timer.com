@@ -183,8 +183,13 @@ document.addEventListener('keypress', function(event) {
     }
 });
 
-// read font choice from local storage (if any)
+var w;
+// do some initialization on page load
 document.addEventListener('DOMContentLoaded', () => {
+  w = $('#optionsCard').css('width');
+  $('#optionsCard').animate({'right':'1em'}, 0);
+
+  // read font choice from local storage (if any)
   document.querySelector("#font-default").checked = false;
   document.querySelector("#font-ubuntu").checked = false;
   document.querySelector("#font-7seg").checked = false;
@@ -224,3 +229,11 @@ function changeFont(newFont){
   localStorage.setItem("font_choice", newFont);
   setFont();
 }
+
+$('#options').on('show.bs.collapse', function () {
+  $('#optionsCard').animate({'width': '35em', 'max-width':'90vw', 'right':'1em'});
+});
+
+$('#options').on('hide.bs.collapse', function () {
+  $('#optionsCard').animate({'width': w, 'right':'1em'});
+});

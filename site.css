@@ -16,15 +16,20 @@
 	font-size: 4em;
 }
 
-#options{
-	max-width: 30%;
-	margin: 0 auto;
-}
-
 body{
 	text-align: center;
 }
 
 body ul{
 	text-align: left;
+}
+
+#options{
+	position: absolute;
+	right: 0em;
+	top: 1em;
+  }
+  
+#options_header button{
+	font-size: small;
 }
