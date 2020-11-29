@@ -36,6 +36,11 @@ startButtonText.innerHTML = "Start";
 display.innerHTML = secsToClock(RESET_VALUE);
 
 
+function setStartTime(val){
+  RESET_VALUE = val;
+  reset();
+}
+
 /**************************************************************
 /
 /           MAIN TIMER FUNCTION
@@ -161,23 +166,6 @@ function playEndSound(){
 
 /**************************************************************
 /
-/           TOGGLE OPTIONS
-/             Show or hide the options panel
-/
-/*************************************************************/
-// function toggleOptions(){
-//   if (optionsPanel.style.display === "none"){
-//     optionsPanel.style.display = "block";
-//     optionsButton.innerHTML = "Hide Options"
-//   }
-//   else{
-//     optionsPanel.style.display = "none";
-//     optionsButton.innerHTML = "Show Options"
-//   }
-// }
-
-/**************************************************************
-/
 /           KEY LISTENER
 /             Listens for keypresses and performs the
 /             appropriate actions.
@@ -212,6 +200,14 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem("font_choice", "default");
   }
   setFont();
+
+  //set program to vex if specified
+  let params = new URLSearchParams(window.location.search);
+  if (params.get("program") == "vex"){
+    setStartTime(60);
+    document.querySelector("#program-fll").classList.remove("active");
+    document.querySelector("#program-vex").classList.add("active");
+  }
 });
 
 function setFont(){

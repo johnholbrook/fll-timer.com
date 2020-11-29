@@ -35,7 +35,21 @@
 
 				<div id="options_body" class="collapse" aria-labelledby="options_header" data-parent="#options">
 
-					<div class="card">
+					<div class="card mb-2">
+						<div class="card-header">Program</div>
+						<div class="card-body">
+							<div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+								<label class="btn btn-secondary active" id="program-fll">
+									<input type="radio" name="options" onclick="setStartTime(150)" checked> FLL
+								</label>
+								<label class="btn btn-secondary" id="program-vex">
+									<input type="radio" name="options" onclick="setStartTime(60)"> VRC/VIQC Skills
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="card mb-2">
 						<div class="card-header">Sounds</div>
 						<div class="card-body">
 							<div class="conatiner">
