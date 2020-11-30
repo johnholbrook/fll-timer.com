@@ -186,7 +186,7 @@ document.addEventListener('keypress', function(event) {
 var w;
 // do some initialization on page load
 document.addEventListener('DOMContentLoaded', () => {
-  w = $('#optionsCard').css('width');
+  setTimeout(() => {w = $('#optionsCard').css('width');}, 1000)
   $('#optionsCard').animate({'right':'1em'}, 0);
 
   // read font choice from local storage (if any)
@@ -210,8 +210,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let params = new URLSearchParams(window.location.search);
   if (params.get("program") == "vex"){
     setStartTime(60);
-    document.querySelector("#program-fll").classList.remove("active");
-    document.querySelector("#program-vex").classList.add("active");
+    console.log("Loaded in VEX mode");
+    setTimeout(()=>{
+      document.querySelector("#program-fll").classList.remove("active");
+      document.querySelector("#program-vex").classList.add("active");
+    }, 500);
   }
 });
 
@@ -232,8 +235,12 @@ function changeFont(newFont){
 
 $('#options').on('show.bs.collapse', function () {
   $('#optionsCard').animate({'width': '35em', 'max-width':'90vw', 'right':'1em'});
+  $('#options_button_symbol').removeClass("fa-cog");
+  $('#options_button_symbol').addClass("fa-times");
 });
 
 $('#options').on('hide.bs.collapse', function () {
   $('#optionsCard').animate({'width': w, 'right':'1em'});
+  $('#options_button_symbol').removeClass("fa-times");
+  $('#options_button_symbol').addClass("fa-cog");
 });
