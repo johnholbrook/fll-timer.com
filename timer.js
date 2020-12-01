@@ -272,6 +272,7 @@ function setFont(){
     brick_font = false;
     document.querySelector("#timer_display").style.fontFamily = font_choice;
   }
+  setClockValue(count);
 }
 
 function changeFont(newFont){
