@@ -8,6 +8,13 @@ var RESET_VALUE = 150;
 var count=RESET_VALUE;
 var isRunning = false;
 var counter = null;
+var brick_font = false;
+var options_collapsed_width;
+
+//only preload the digits we'll actually need
+var brick_font_digits = ["0-left.png", "1-left.png", "2-left.png", 
+"0-mid.png", "1-mid.png", "2-mid.png", "3-mid.png", "4-mid.png", "5-mid.png",
+"0-right.png", "1-right.png", "2-right.png", "3-right.png", "4-right.png", "5-right.png", "6-right.png", "7-right.png", "8-right.png", "9-right.png"];
 
 //Pre-load sounds
 var charge_sound = new Audio("/sounds/charge.mp3");
@@ -33,12 +40,42 @@ var startButtonText = document.querySelector("#start_pause");
 //initialize the start button text
 startButtonText.innerHTML = "Start";
 //initialize the timer display
-display.innerHTML = secsToClock(RESET_VALUE);
-
+setClockValue(RESET_VALUE);
 
 function setStartTime(val){
   RESET_VALUE = val;
   reset();
+}
+
+function textToImage(text){
+  if (text.charAt(1) != ":" || text.length != 4){
+  // if (text.length != 3){
+      console.error("Format: x:yz");
+  }
+  else{
+      let left = text.charAt(0);
+      let mid = text.charAt(2);
+  let right = text.charAt(3);
+      
+  return `<svg class="brick-font" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1600 1200">
+      <image x="0px" y="0px" width="650px" height="1200px" href="/brick_digits/${left}-left.png"></image>
+      <image x="649px" y="0px" width="470px" height="1200px" href="/brick_digits/${mid}-mid.png"></image>
+      <image x="1118px" y="0px" width="480px" height="1200px" href="/brick_digits/${right}-right.png"></image>
+</svg>`
+  }
+}
+
+function preloadImages(){
+  brick_font_digits.forEach(digit => {
+    let img = new Image();
+    img.src = `/brick_digits/${digit}`;
+  })
+}
+
+//set the clock value (val in seconds)
+function setClockValue(val){
+  let formatted = secsToClock(val);
+  display.innerHTML = brick_font ? textToImage(formatted) : formatted;
 }
 
 /**************************************************************
@@ -54,7 +91,7 @@ function timer(){
     console.log("timer ended");
     pause();
     clearInterval(counter);
-    display.innerHTML = secsToClock(0);
+    setClockValue(0);
     playEndSound();
     //Wait 5 seconds, then reset
     setTimeout(reset, 5000);
@@ -62,8 +99,7 @@ function timer(){
   }
 
   //update the time on the display
-  var time = secsToClock(count);
-  display.innerHTML = time;
+  setClockValue(count);
 
   //play sound effect, if any
   if (count == 30){
@@ -103,7 +139,7 @@ function reset(){
   pause();
   console.log("Resetting timer");
   count = RESET_VALUE;
-  display.innerHTML = secsToClock(count);
+  setClockValue(count);
 }
 
 function toggle(){
@@ -183,16 +219,16 @@ document.addEventListener('keypress', function(event) {
     }
 });
 
-var w;
 // do some initialization on page load
 document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {w = $('#optionsCard').css('width');}, 1000)
+  setTimeout(() => {options_collapsed_width = $('#optionsCard').css('width');}, 1000)
   $('#optionsCard').animate({'right':'1em'}, 0);
 
   // read font choice from local storage (if any)
   document.querySelector("#font-default").checked = false;
   document.querySelector("#font-ubuntu").checked = false;
   document.querySelector("#font-7seg").checked = false;
+  document.querySelector("#font-bricks").checked = false;
   switch (localStorage.getItem("font_choice")){
     case "ubuntu-mono-bold":
       document.querySelector("#font-ubuntu").checked = true;
@@ -200,6 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
     case "digital-7-mono":
       document.querySelector("#font-7seg").checked = true;
     break;
+    case "bricks":
+      document.querySelector("#font-bricks").checked = true;
+      break;
     default:
       document.querySelector("#font-default").checked = true;
       localStorage.setItem("font_choice", "default");
@@ -221,9 +260,16 @@ document.addEventListener('DOMContentLoaded', () => {
 function setFont(){
   let font_choice = localStorage.getItem("font_choice")
   if (font_choice == "default"){
+    brick_font = false;
     document.querySelector("#timer_display").style.fontFamily = "";
   }
+  else if (font_choice == "bricks"){
+    //preload images only when the brick font is selected
+    preloadImages();
+    brick_font = true;
+  }
   else{
+    brick_font = false;
     document.querySelector("#timer_display").style.fontFamily = font_choice;
   }
 }
@@ -240,7 +286,7 @@ $('#options').on('show.bs.collapse', function () {
 });
 
 $('#options').on('hide.bs.collapse', function () {
-  $('#optionsCard').animate({'width': w, 'right':'1em'});
+  $('#optionsCard').animate({'width': options_collapsed_width, 'right':'1em'});
   $('#options_button_symbol').removeClass("fa-times");
   $('#options_button_symbol').addClass("fa-cog");
 });

@@ -29,3 +29,8 @@ body ul{
 	right: 0em;
 	top: 1em;
 }
+
+.brick-font{
+	max-width: 80vw;
+	max-height: 80vh;
+}
