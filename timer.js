@@ -271,15 +271,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#appearance-dark').checked = true;
   }
   else {
-    // if no choice in local storage, follow the system dark mdoe setting (if applicable, otherwise will default to light)
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches){
-      document.querySelector('#appearance-dark').checked = true;
-      localStorage.setItem("appearance", "dark");
-    }
-    else{
-      document.querySelector('#appearance-light').checked = true;
-      localStorage.setItem("appearance", "light");
-    }
+    // if no choice in local storage, default to dark
+	document.querySelector('#appearance-dark').checked = true;
+	localStorage.setItem("appearance", "dark");
   }
   setAppearance();
 
