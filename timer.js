@@ -290,6 +290,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 500);
   }
 
+  document.querySelector("#set-custom-time").onclick = () => {
+	setStartTime(Number(document.querySelector("#custom-time-value").value));
+  };
+
+  document.querySelector("#custom-time-value").onchange = () => {
+	setStartTime(Number(document.querySelector("#custom-time-value").value));
+  };
 });
 
 function setFont() {
