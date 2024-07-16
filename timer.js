@@ -229,6 +229,7 @@ document.addEventListener("keypress", function (event) {
   if (event.key == " " || event.key == "Spacebar") {
     //console.log(document.activeElement.className);
     if (document.activeElement.className != "timer_button") {
+    if (event.target == document.body) event.preventDefault();
       toggle();
     }
   } else if (event.key == "r") {
